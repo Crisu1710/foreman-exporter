@@ -19,7 +19,10 @@ type GetResults struct {
 }
 
 func allHosts() getData {
-	res, err := httpRequest("http://localhost:8081/api/hosts.json")
+	res, err := httpRequest("https://foreman.example.com/api/hosts?thin=true&&per_page=1000")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	body, readErr := ioutil.ReadAll(res.Body)
 	if readErr != nil {
