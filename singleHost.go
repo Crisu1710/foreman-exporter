@@ -4,17 +4,19 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"os"
 	"strconv"
 )
 
 type getHost struct {
-	StatusLabel string `json:"status_label"`
-	Status      float64
+	GlobalStatusLabel string  `json:"global_status_label"`
+	GlobalStatus      float64 `json:"global_status"`
+	LastReport        string  `json:"last_report"`
 }
 
 func singleHost(id int) getHost {
 	newId := strconv.FormatInt(int64(id), 10)
-	res, err := httpRequest("https://foreman.example.com/api/hosts/" + newId + "/status/global")
+	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts/" + newId)
 	if err != nil {
 		log.Fatal(err)
 	}

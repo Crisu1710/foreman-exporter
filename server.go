@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/tls"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -17,7 +18,7 @@ func httpRequest(url string) (*http.Response, error) {
 		return nil, err
 	}
 
-	request.Header.Set("Cookie", "sid=XXXXXXXXXX; _session_id=XXXXXXXXXX; timezone=Europe%2FBerlin")
+	request.Header.Set("Authorization", os.Getenv("FOREMAN_PW"))
 
 	res, err := metaClient.Do(request)
 	if err != nil {

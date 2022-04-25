@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"os"
 )
 
 type getData struct {
@@ -19,7 +20,7 @@ type GetResults struct {
 }
 
 func allHosts() getData {
-	res, err := httpRequest("https://foreman.example.com/api/hosts?thin=true&&per_page=1000")
+	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts?thin=true&&per_page=1000")
 	if err != nil {
 		log.Fatal(err)
 	}
