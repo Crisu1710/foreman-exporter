@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	recordMetrics()
+	go runInterval()
+	//recordMetrics()
 
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":2112", nil)

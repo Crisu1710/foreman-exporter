@@ -1,27 +1,28 @@
 package main
 
 import (
-	"fmt"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"strconv"
 	"time"
 )
 
-func convertTime(newtime string) float64 {
-	layout := "2006-01-02 15:04:05 UTC"
-	t, err := time.Parse(layout, newtime)
-	if err != nil {
-		fmt.Println(err)
-	}
-	tofloat64 := float64(t.Unix())
+var forTarget = promauto.NewGaugeVec(prometheus.GaugeOpts{
+	Name: "foreman_puppet_last_check",
+	Help: "Timestamp of the last puppet run of each host",
+}, []string{"host_id", "host_name", "status", "status_id"})
 
-	return tofloat64
-}
+var testInterval = promauto.NewCounterVec(prometheus.CounterOpts{
+	Name: "foreman_test_interval",
+	Help: "test",
+}, []string{"test"})
+
+var interval = 1
 
 func recordMetrics() {
 	data := allHosts()
 	go func() {
+		testInterval.WithLabelValues("bla").Inc()
 		for _, d := range data.Results {
 			host := singleHost(d.Id)
 			if host.LastReport != "" {
@@ -33,9 +34,12 @@ func recordMetrics() {
 			}
 		}
 	}()
+	interval = 15
 }
 
-var forTarget = promauto.NewGaugeVec(prometheus.GaugeOpts{
-	Name: "foreman_puppet_last_check",
-	Help: "Timestamp of the last puppet run of each host",
-}, []string{"host_id", "host_name", "status", "status_id"})
+func runInterval() {
+	for {
+		time.Sleep(time.Duration(interval) * time.Minute)
+		go recordMetrics()
+	}
+}
