@@ -37,7 +37,7 @@ $ ./foreman_exporter
 
 Sources:
 ```bash
-$ go run *.go
+$ go run main.go
 ```
 
 ## Using K8s
