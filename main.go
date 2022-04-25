@@ -1,13 +1,18 @@
 package main
 
 import (
+	"example.com/mymetrics"
+	"fmt"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
 )
 
 func main() {
-	go runInterval()
+	go mymetrics.RunInterval()
 
 	http.Handle("/metrics", promhttp.Handler())
-	http.ListenAndServe(":2112", nil)
+	err := http.ListenAndServe(":2112", nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 }

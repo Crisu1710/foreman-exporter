@@ -1,4 +1,4 @@
-package main
+package mycollector
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-type getData struct {
+type GetData struct {
 	Total   float64
 	Page    int
 	Results []GetResults
@@ -18,7 +18,7 @@ type GetResults struct {
 	Name string
 }
 
-func allHosts() getData {
+func AllHosts() GetData {
 	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts?thin=true&&per_page=1000")
 	if err != nil {
 		log.Fatal(err)
@@ -29,7 +29,7 @@ func allHosts() getData {
 		log.Fatal(readErr)
 	}
 
-	var data getData
+	var data GetData
 	err = json.Unmarshal(body, &data)
 	if err != nil {
 		log.Fatal(err)

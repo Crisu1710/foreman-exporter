@@ -1,4 +1,4 @@
-package main
+package mycollector
 
 import (
 	"crypto/tls"

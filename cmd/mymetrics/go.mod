@@ -1,17 +1,15 @@
-module example.com/foreman
+module example.com/mymetrics
 
 go 1.17
 
 replace (
-	example.com/mymetrics => ./cmd/mymetrics
-	example.com/mycollector => ./cmd/mycollector
-	example.com/mytime => ./cmd/mytime
+	example.com/mycollector => ../mycollector
+	example.com/mytime => ../mytime
 )
 
 require (
-	example.com/mymetrics v0.0.0-00010101000000-000000000000
-	github.com/prometheus/client_golang v1.12.1
-	example.com/mycollector v0.0.0-00010101000000-000000000000 // indirect
+	example.com/mycollector v0.0.0-00010101000000-000000000000
+    github.com/prometheus/client_golang v1.12.1
 	example.com/mytime v0.0.0-00010101000000-000000000000 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect

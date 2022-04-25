@@ -1,4 +1,4 @@
-package main
+package mycollector
 
 import (
 	"encoding/json"
@@ -8,13 +8,13 @@ import (
 	"strconv"
 )
 
-type getHost struct {
+type GetHost struct {
 	GlobalStatusLabel string  `json:"global_status_label"`
 	GlobalStatus      float64 `json:"global_status"`
 	LastReport        string  `json:"last_report"`
 }
 
-func singleHost(id int) getHost {
+func SingleHost(id int) GetHost {
 	newId := strconv.FormatInt(int64(id), 10)
 	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts/" + newId)
 	if err != nil {
@@ -26,7 +26,7 @@ func singleHost(id int) getHost {
 		log.Fatal(readErr)
 	}
 
-	var host getHost
+	var host GetHost
 	err = json.Unmarshal(body, &host)
 	if err != nil {
 		log.Fatal(err)
