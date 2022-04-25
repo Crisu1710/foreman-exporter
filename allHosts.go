@@ -8,9 +8,8 @@ import (
 )
 
 type getData struct {
-	Total float64
-	Page  int
-	//Results map[int][]GetResults
+	Total   float64
+	Page    int
 	Results []GetResults
 }
 

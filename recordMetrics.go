@@ -12,17 +12,11 @@ var forTarget = promauto.NewGaugeVec(prometheus.GaugeOpts{
 	Help: "Timestamp of the last puppet run of each host",
 }, []string{"host_id", "host_name", "status", "status_id"})
 
-var testInterval = promauto.NewCounterVec(prometheus.CounterOpts{
-	Name: "foreman_test_interval",
-	Help: "test",
-}, []string{"test"})
-
 var interval = 1
 
 func recordMetrics() {
 	data := allHosts()
 	go func() {
-		testInterval.WithLabelValues("bla").Inc()
 		for _, d := range data.Results {
 			host := singleHost(d.Id)
 			if host.LastReport != "" {
