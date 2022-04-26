@@ -1,11 +1,11 @@
-package main
+package parser
 
 import (
 	"fmt"
 	"time"
 )
 
-func convertTime(newtime string) float64 {
+func ConvertTime(newtime string) float64 {
 	layout := "2006-01-02 15:04:05 UTC"
 	t, err := time.Parse(layout, newtime)
 	if err != nil {

@@ -1,4 +1,4 @@
-package main
+package collector
 
 import (
 	"crypto/tls"
@@ -10,7 +10,7 @@ import (
 func httpRequest(url string) (*http.Response, error) {
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	metaClient := http.Client{
-		Timeout: time.Second * 2, // Timeout after 2 seconds
+		Timeout: time.Second * 4, // Timeout after 2 seconds
 	}
 
 	request, err := http.NewRequest(http.MethodGet, url, nil)
