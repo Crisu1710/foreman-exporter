@@ -1,16 +1,19 @@
-module example.com/mymetrics
+module example.com/metrics
 
 go 1.17
 
 replace (
-	example.com/mycollector => ../mycollector
-	example.com/mytime => ../mytime
+	example.com/collector => ../collector
+	example.com/parser => ./../parser
 )
 
 require (
-	example.com/mycollector v0.0.0-00010101000000-000000000000
-    github.com/prometheus/client_golang v1.12.1
-	example.com/mytime v0.0.0-00010101000000-000000000000 // indirect
+	example.com/collector v0.0.0-00010101000000-000000000000
+	example.com/parser v0.0.0-00010101000000-000000000000
+	github.com/prometheus/client_golang v1.12.1
+)
+
+require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect

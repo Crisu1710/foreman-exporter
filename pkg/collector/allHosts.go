@@ -1,4 +1,4 @@
-package mycollector
+package collector
 
 import (
 	"encoding/json"
@@ -8,8 +8,6 @@ import (
 )
 
 type GetData struct {
-	Total   float64
-	Page    int
 	Results []GetResults
 }
 

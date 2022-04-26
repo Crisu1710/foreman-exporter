@@ -1,4 +1,4 @@
-package mytime
+package parser
 
 import (
 	"fmt"
