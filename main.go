@@ -1,8 +1,8 @@
 package main
 
 import (
-	"example.com/metrics"
 	"fmt"
+	"github.com/Crisu1710/foreman-exporter/pkg/metrics"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
 )
