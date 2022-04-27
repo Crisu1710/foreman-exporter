@@ -5,18 +5,21 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"strconv"
 )
 
-type GetHost struct {
+type GetAllData struct {
+	Results []GetAllResults
+}
+
+type GetAllResults struct {
 	GlobalStatusLabel string `json:"global_status_label"`
 	LastReport        string `json:"last_report"`
 	HostGroupName     string `json:"hostgroup_name"`
+	Name              string `json:"name"`
 }
 
-func SingleHost(id int) GetHost {
-	strId := strconv.FormatInt(int64(id), 10)
-	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts/" + strId)
+func AllInOneHosts() GetAllData {
+	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts?per_page=1000")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -26,11 +29,11 @@ func SingleHost(id int) GetHost {
 		log.Fatal(readErr)
 	}
 
-	var host GetHost
-	err = json.Unmarshal(body, &host)
+	var data GetAllData
+	err = json.Unmarshal(body, &data)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return host
+	return data
 }

@@ -13,16 +13,15 @@ var forTarget = promauto.NewGaugeVec(prometheus.GaugeOpts{
 	Help: "Timestamp of the last puppet run of each host",
 }, []string{"host_name", "host_group_name", "status"})
 
-var interval = 5
+var interval = 1
 
 func recordMetrics() {
-	data := collector.AllHosts()
+	data := collector.AllInOneHosts()
 	go func() {
 		for _, d := range data.Results {
-			host := collector.SingleHost(d.Id)
-			if host.LastReport != "" {
-				newtime := parser.ConvertTime(host.LastReport)
-				forTarget.WithLabelValues(d.Name, host.HostGroupName, host.GlobalStatusLabel).Add(newtime)
+			if d.LastReport != "" {
+				newtime := parser.ConvertTime(d.LastReport)
+				forTarget.WithLabelValues(d.Name, d.HostGroupName, d.GlobalStatusLabel).Add(newtime)
 			}
 		}
 	}()
@@ -32,6 +31,6 @@ func recordMetrics() {
 func RunInterval() {
 	for {
 		time.Sleep(time.Duration(interval) * time.Second)
-		go recordMetrics()
+		recordMetrics()
 	}
 }
