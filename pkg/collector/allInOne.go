@@ -18,7 +18,7 @@ type GetAllResults struct {
 	Name              string `json:"name"`
 }
 
-func AllInHosts() GetAllData {
+func AllInOneHosts() GetAllData {
 	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts?per_page=1000")
 	if err != nil {
 		log.Fatal(err)

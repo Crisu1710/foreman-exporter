@@ -16,7 +16,7 @@ var forTarget = promauto.NewGaugeVec(prometheus.GaugeOpts{
 var interval = 1
 
 func recordMetrics() {
-	data := collector.AllInHosts()
+	data := collector.AllInOneHosts()
 	go func() {
 		for _, d := range data.Results {
 			if d.LastReport != "" {
