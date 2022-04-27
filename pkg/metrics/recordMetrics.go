@@ -1,8 +1,8 @@
 package metrics
 
 import (
-	"example.com/collector"
-	"example.com/parser"
+	"github.com/Crisu1710/foreman-exporter/pkg/collector"
+	"github.com/Crisu1710/foreman-exporter/pkg/parser"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"time"

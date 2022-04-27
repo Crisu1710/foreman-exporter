@@ -1,19 +1,11 @@
-module example.com/foreman
+module foreman
 
 go 1.17
 
-replace (
-	example.com/collector => ./pkg/collector
-	example.com/metrics => ./pkg/metrics
-	example.com/parser => ./pkg/parser
-)
 
 require github.com/prometheus/client_golang v1.12.1
 
 require (
-	example.com/collector v0.0.0-00010101000000-000000000000 // indirect
-	example.com/metrics v0.0.0-00010101000000-000000000000 // indirect
-	example.com/parser v0.0.0-00010101000000-000000000000 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
