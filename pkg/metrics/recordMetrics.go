@@ -29,7 +29,7 @@ func recordMetrics() {
 			}
 		}
 	}()
-	interval = 20 // * 60 // min to sec
+	interval = 15 * 60 // min to sec
 }
 
 func RunInterval() {
