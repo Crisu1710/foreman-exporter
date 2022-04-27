@@ -8,24 +8,24 @@ import (
 	"time"
 )
 
-var forTarget = promauto.NewGaugeVec(prometheus.GaugeOpts{
-	Name: "foreman_puppet_last_check",
+var reportTime = promauto.NewGaugeVec(prometheus.GaugeOpts{
+	Name: "foreman_puppet_last_report",
 	Help: "Timestamp of the last puppet run of each host",
 }, []string{"host_name", "host_group_name", "status"})
 
 var interval = 1
 
 func recordMetrics() {
-	data := collector.AllInOneHosts()
-	forTarget.Reset()
+	hosts := collector.GetHosts()
+	reportTime.Reset()
 	go func() {
-		for _, d := range data.Results {
-			if d.LastReport != "" {
-				newtime := parser.ConvertTime(d.LastReport)
-				if d.HostGroupName == "" {
-					d.HostGroupName = "None"
+		for _, host := range hosts.Results {
+			if host.LastReport != "" {
+				lastReport := parser.ConvertTime(host.LastReport)
+				if host.HostGroupName == "" {
+					host.HostGroupName = "None"
 				}
-				forTarget.WithLabelValues(d.Name, d.HostGroupName, d.GlobalStatusLabel).Add(newtime)
+				reportTime.WithLabelValues(host.Name, host.HostGroupName, host.GlobalStatusLabel).Add(lastReport)
 			}
 		}
 	}()
