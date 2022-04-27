@@ -80,6 +80,6 @@ spec:
 
 |            Metric name            | Description                                                     |
 |:---------------------------------:|-----------------------------------------------------------------|
-|     foreman_puppet_last_check     | Timestamp of the last puppet run of each host                   |   
+|     foreman_puppet_last_report    | Timestamp of the last puppet run of each host                   |   
 
 
