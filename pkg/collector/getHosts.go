@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-type GetAllData struct {
+type GetAllHosts struct {
 	Results []GetAllResults
 }
 
@@ -18,7 +18,7 @@ type GetAllResults struct {
 	Name              string `json:"name"`
 }
 
-func AllInOneHosts() GetAllData {
+func GetHosts() GetAllHosts {
 	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts?per_page=1000")
 	if err != nil {
 		log.Fatal(err)
@@ -29,7 +29,7 @@ func AllInOneHosts() GetAllData {
 		log.Fatal(readErr)
 	}
 
-	var data GetAllData
+	var data GetAllHosts
 	err = json.Unmarshal(body, &data)
 	if err != nil {
 		log.Fatal(err)
