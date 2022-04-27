@@ -1,7 +1,6 @@
-module foreman
+module github.com/Crisu1710/foreman-exporter
 
 go 1.17
-
 
 require github.com/prometheus/client_golang v1.12.1
 
