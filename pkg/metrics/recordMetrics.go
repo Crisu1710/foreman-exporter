@@ -17,15 +17,19 @@ var interval = 1
 
 func recordMetrics() {
 	data := collector.AllInOneHosts()
+	forTarget.Reset()
 	go func() {
 		for _, d := range data.Results {
 			if d.LastReport != "" {
 				newtime := parser.ConvertTime(d.LastReport)
+				if d.HostGroupName == "" {
+					d.HostGroupName = "None"
+				}
 				forTarget.WithLabelValues(d.Name, d.HostGroupName, d.GlobalStatusLabel).Add(newtime)
 			}
 		}
 	}()
-	interval = 15 * 60 // min to sec
+	interval = 20 // * 60 // min to sec
 }
 
 func RunInterval() {
