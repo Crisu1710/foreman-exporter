@@ -16,6 +16,7 @@ type GetAllResults struct {
 	LastReport        string `json:"last_report"`
 	HostGroupName     string `json:"hostgroup_name"`
 	Name              string `json:"name"`
+	Ip                string `json:"ip"`
 }
 
 func GetHosts() GetAllHosts {

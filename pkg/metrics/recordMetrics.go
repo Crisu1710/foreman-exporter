@@ -11,7 +11,7 @@ import (
 var reportTime = promauto.NewGaugeVec(prometheus.GaugeOpts{
 	Name: "foreman_puppet_last_report",
 	Help: "Timestamp of the last puppet run of each host",
-}, []string{"host_name", "host_group_name", "status"})
+}, []string{"host_name", "host_group_name", "ip", "status"})
 
 var interval = 1
 
@@ -25,7 +25,7 @@ func recordMetrics() {
 				if host.HostGroupName == "" {
 					host.HostGroupName = "None"
 				}
-				reportTime.WithLabelValues(host.Name, host.HostGroupName, host.GlobalStatusLabel).Add(lastReport)
+				reportTime.WithLabelValues(host.Name, host.HostGroupName, host.Ip, host.GlobalStatusLabel).Add(lastReport)
 			}
 		}
 	}()
