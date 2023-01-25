@@ -5,6 +5,7 @@ import (
 	"github.com/Crisu1710/foreman-exporter/pkg/parser"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
+	"log"
 	"time"
 )
 
@@ -21,7 +22,10 @@ func recordMetrics() {
 	go func() {
 		for _, host := range hosts.Results {
 			if host.LastReport != "" {
-				lastReport := parser.ConvertTime(host.LastReport)
+				lastReport, err := parser.ConvertTime(host.LastReport)
+				if err != nil {
+					log.Println(err)
+				}
 				if host.HostGroupName == "" {
 					host.HostGroupName = "None"
 				}

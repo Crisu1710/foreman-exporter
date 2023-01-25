@@ -2,7 +2,7 @@ package collector
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 )
@@ -22,18 +22,18 @@ type GetAllResults struct {
 func GetHosts() GetAllHosts {
 	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts?per_page=1000")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
-	body, readErr := ioutil.ReadAll(res.Body)
+	body, readErr := io.ReadAll(res.Body)
 	if readErr != nil {
-		log.Fatal(readErr)
+		log.Println(readErr)
 	}
 
 	var data GetAllHosts
 	err = json.Unmarshal(body, &data)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	return data
