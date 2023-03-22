@@ -17,10 +17,11 @@ type GetAllResults struct {
 	HostGroupName     string `json:"hostgroup_name"`
 	Name              string `json:"name"`
 	Ip                string `json:"ip"`
+	PuppetProxyName   string `json:"puppet_proxy_name"`
 }
 
 func GetHosts() GetAllHosts {
-	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/hosts?per_page=1000")
+	res, err := httpRequest("https://" + os.Getenv("FOREMAN_HOST") + "/api/v2/hosts?per_page=1200")
 	if err != nil {
 		log.Println(err)
 	}

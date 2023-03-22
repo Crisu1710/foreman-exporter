@@ -29,7 +29,7 @@ func recordMetrics() {
 				if host.HostGroupName == "" {
 					host.HostGroupName = "None"
 				}
-				reportTime.WithLabelValues(host.Name, host.HostGroupName, host.Ip, host.GlobalStatusLabel).Add(lastReport)
+				reportTime.WithLabelValues(host.Name, host.HostGroupName, host.Ip, host.GlobalStatusLabel, host.PuppetProxyName).Add(lastReport)
 			}
 		}
 	}()
