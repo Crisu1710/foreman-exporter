@@ -12,7 +12,7 @@ import (
 var reportTime = promauto.NewGaugeVec(prometheus.GaugeOpts{
 	Name: "foreman_puppet_last_report",
 	Help: "Timestamp of the last puppet run of each host",
-}, []string{"host_name", "host_group_name", "ip", "status"})
+}, []string{"host_name", "host_group_name", "ip", "status", "puppet_proxy_name"})
 
 var interval = 1
 
