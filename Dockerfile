@@ -1,16 +1,19 @@
-FROM golang:1.18-alpine3.15 as build
+ARG APP_NAME=foreman-exporter
 
-WORKDIR /tmp/foreman_exporter
+FROM golang:1.18-alpine as build
+
+ARG APP_NAME
+WORKDIR /app
 
 RUN apk --no-cache add git alpine-sdk
 COPY . .
 RUN GO111MODULE=on go mod vendor
-RUN CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -o foreman_exporter ./
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o ./$APP_NAME
 
-FROM golang:1.18-alpine3.15
-LABEL name="foreman_exporter"
+FROM scratch
 
-WORKDIR /root
-COPY --from=build /tmp/foreman_exporter/foreman_exporter foreman_exporter
+ARG APP_NAME
 
-CMD ["./foreman_exporter"]
+COPY --from=build /app/$APP_NAME /app
+
+ENTRYPOINT ["/app"]
