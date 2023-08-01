@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apk --no-cache add git alpine-sdk
 COPY . .
 RUN GO111MODULE=on go mod vendor
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o ./$APP_NAME
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o ./$APP_NAME
 
 FROM scratch
 
