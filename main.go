@@ -1,15 +1,15 @@
 package main
 
 import (
-	"github.com/Crisu1710/foreman-exporter/pkg/metrics"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
+
+	"github.com/Crisu1710/foreman-exporter/pkg/metrics"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
-	go metrics.RunInterval()
-
+	go metrics.RecordMetrics()
 	http.Handle("/metrics", promhttp.Handler())
 	err := http.ListenAndServe(":2112", nil)
 	if err != nil {
