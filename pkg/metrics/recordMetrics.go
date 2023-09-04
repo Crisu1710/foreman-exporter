@@ -30,7 +30,7 @@ func RecordMetrics() {
 				}
 				reportTime.WithLabelValues(host.Name, host.HostGroupName, host.Ip, host.GlobalStatusLabel, host.PuppetProxyName).Set(lastReport)
 			}
-			time.Sleep(15 * time.Second)
+			time.Sleep(15 * time.Minute)
 		}
 	}()
 }

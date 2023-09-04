@@ -10,7 +10,7 @@ import (
 func httpRequest(url string) (*http.Response, error) {
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	metaClient := http.Client{
-		Timeout: time.Second * 15, // Timeout after 2 seconds
+		Timeout: 20 * time.Second,
 	}
 
 	request, err := http.NewRequest(http.MethodGet, url, nil)
